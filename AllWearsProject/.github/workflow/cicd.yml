@@ -1,0 +1,34 @@
+name:CICD
+on:
+push:
+branches:[ deploy-to-ec2]
+
+jobs:
+build:
+runs-on: [window-lastest]
+steps:
+    - name : Checkout source
+      users: action/checkout@v3
+    - name: setup Java
+      uses: actions/setup-java@v3
+      with:
+      distribution: 'temurin' 
+      java-version: '17'
+    - name : Buid Project
+      run: maven clean install -DskipTests
+    - name: Login to docker hub
+       run: docker loing -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+    - name: Buid docker image 
+      run: docker build -t intregrationinjas/product .
+    - name: publish image to docker hub
+    run:  docker push intregrationinjas/product :lastet
+
+    deploy:
+    need: build
+    runs-on: [aws-ec2]
+    steps:
+  - name: Pull Image from docker hub
+    run: docker pull intregrationinjas/product:lastet
+    
+    - name: Run docker container
+     run: docker run -d -p 8080:8080 --name product
