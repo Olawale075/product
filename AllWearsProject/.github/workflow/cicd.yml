@@ -27,15 +27,9 @@ steps:
     need: build
     runs-on: [aws-ec2]
     steps:
-<<<<<<< HEAD
   - name: Pull Image from docker hub
     run: docker pull Olawale075/product:lastet
     
-=======
-    -name: Pull Image from docker hub
-    run: docker pull Olawale075/product:lastet
-    -
->>>>>>> 223d2c3e58e1001399bb2d917b2df0e0aae50baa
     - name: Run docker container
      run: docker run -d -p 8080:8080 --name product
      
