@@ -19,9 +19,9 @@ steps:
     - name: Login to docker hub
        run: docker loing -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
     - name: Buid docker image 
-      run: docker build -t intregrationinjas/product .
+      run: docker build -t Olawale075/product .
     - name: publish image to docker hub
-    run:  docker push intregrationinjas/product :lastet
+    run:  docker push Olawale075/product :lastet
 
     deploy:
     need: build
@@ -29,12 +29,16 @@ steps:
     steps:
 <<<<<<< HEAD
   - name: Pull Image from docker hub
-    run: docker pull intregrationinjas/product:lastet
+    run: docker pull Olawale075/product:lastet
     
 =======
     -name: Pull Image from docker hub
-    run: docker pull intregrationinjas/product:lastet
+    run: docker pull Olawale075/product:lastet
     -
 >>>>>>> 223d2c3e58e1001399bb2d917b2df0e0aae50baa
     - name: Run docker container
      run: docker run -d -p 8080:8080 --name product
+     
+
+    
+
